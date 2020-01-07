@@ -1,0 +1,74 @@
+<!DOCTYPE html> <!-- Copyright 2020 HSNU1481 All Rights Reserved. -->
+<html>
+<head>
+    <title>Mission: Null</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.2/lib/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.2/lib/vant.min.js"></script>
+    <van-number-keyboard safe-area-inset-bottom />
+    <script>
+    var loc_map = (function(){
+        var x = location.href;
+        var KVs = x.search(/\?/)>-1?x.substr(x.search(/\?/)+1).split("&"):[];
+        var m = {};
+        for(i in KVs) {
+            let KV = KVs[i].split("=");
+            m[KV[0]] = KV[1];
+        }
+        return m;
+    })();
+    </script>
+</head>
+<body>
+    <div id="app">
+        <van-tabs v-model="tab" sticky animated swipeable scrollspy>
+            <van-tab v-for="subject in researches" :title="subject.name">
+                <van-row type="flex" justify="center">
+                    <van-col span="22">
+                        <br>
+                        {{ subject.name }}好難喔。
+                    </van-col>
+                </van-row>
+            </van-tab>
+        </van-tabs>
+    </div>
+    <script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            tab: loc_map["tab"] ? Number(loc_map["tab"]) : 0,
+            researches: {
+                "數學": {
+                    "name": "數學"
+                },
+                "物理": {
+                    "name": "物理"
+                },
+                "化學": {
+                    "name": "化學"
+                },
+                "生物": {
+                    "name": "生物"
+                },
+                "地科": {
+                    "name": "地科"
+                },
+                "資訊": {
+                    "name": "資訊"
+                }
+            }
+        }
+    });
+    document.body.addEventListener("keydown", e => {
+        if(e.keyCode == 37) {
+            app._data.tab = (app._data.tab + 5) % 6;
+        }
+        if(e.keyCode == 39) {
+            app._data.tab = (app._data.tab + 1) % 6;
+        }
+    });
+    </script>
+</body>
+</html>
