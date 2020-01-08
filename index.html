@@ -72,8 +72,8 @@ var loc_map = (function(){
                 }
                 else if(content.type == "image") {
                     var image = document.createElement("van-image");
-                    image.src = content.image;
-                    image["lazy-load"] = true;
+                    image.setAttribute("src", content.image);
+                    image.setAttribute("lazy-load", true);
                     return image.outerHTML;
                 }
             }
