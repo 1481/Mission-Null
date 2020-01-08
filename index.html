@@ -39,11 +39,6 @@ var loc_map = (function(){
                 <van-row type="flex" justify="center">
                     <van-col span="22">
                         <br>
-                        {{ subject.name }}好難喔。
-                        <br>
-                        <br>
-                        測試數學式：
-                        <div>$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$</div>
                         <div v-for="content in subject.contents" v-html="render(content)"></div>
                     </van-col>
                 </van-row>
@@ -68,7 +63,12 @@ var loc_map = (function(){
         },
         methods: {
             render: function(content) {
-                if(content.type == "text") {
+                if(content.type == "title") {
+                    var title = document.createElement("h2");
+                    title.innerHTML = content.title;
+                    return title.outerHTML;
+                }
+                else if(content.type == "text") {
                     var text = document.createElement("p");
                     text.innerHTML = content.text;
                     return text.outerHTML;
@@ -89,12 +89,20 @@ var loc_map = (function(){
                     "name": "數學",
                     "contents": [
                         {
+                            "type": "title",
+                            "title": "雙曲線"
+                        },
+                        {
                             "type": "text",
-                            "text": "數學好難！"
+                            "text": "這是雙曲線。"
                         },
                         {
                             "type": "image",
                             "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Hyperbel-def-ass-e.svg/928px-Hyperbel-def-ass-e.svg.png"
+                        },
+                        {
+                            "type": "text",
+                            "text": "雙曲線的方程式通常長這樣：${{x^2 \over a^2} - {y^2 \over b^2} = 1}$"
                         }
                     ]
                 },
