@@ -38,7 +38,10 @@ var loc_map = (function(){
                         <br>
                         {{ subject.name }}好難喔。
                         <br>
+                        <br>
+                        測試數學式：
                         <div class="math">$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$</div>
+                        <div v-for="contents in subject.contents"></div>
                     </van-col>
                 </van-row>
             </van-tab>
@@ -47,29 +50,59 @@ var loc_map = (function(){
     <script>
     var app = new Vue({
         el: "#app",
-        mounted: function() {
-            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        watch: {
+            tab: function(n) {
+                console.log("Tab Switched To " + n);
+                history.pushState({tab: n}, "", "?tab="+n);
+                setTimeout(() => {
+                    MathJax.typesetPromise().then(() => {
+                        console.log("Rendered MathJax.");
+                    }).catch(e => {
+                        console.error(e);
+                    });
+                }, 50);
+            }
+        },
+        computed: {
+            render: function() {
+
+            }
         },
         data: {
             tab: loc_map["tab"] ? Number(loc_map["tab"]) : 0,
             researches: {
                 "數學": {
-                    "name": "數學"
+                    "name": "數學",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": "數學好難！"
+                        },
+                        {
+                            "type": "image",
+                            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Hyperbel-def-ass-e.svg/928px-Hyperbel-def-ass-e.svg.png"
+                        }
+                    ]
                 },
                 "物理": {
-                    "name": "物理"
+                    "name": "物理",
+                    "contents": []
                 },
                 "化學": {
-                    "name": "化學"
+                    "name": "化學",
+                    "contents": []
                 },
                 "生物": {
-                    "name": "生物"
+                    "name": "生物",
+                    "contents": []
                 },
                 "地科": {
-                    "name": "地科"
+                    "name": "地科",
+                    "contents": []
                 },
                 "資訊": {
-                    "name": "資訊"
+                    "name": "資訊",
+                    "contents": []
                 }
             }
         }
