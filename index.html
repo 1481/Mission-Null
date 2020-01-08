@@ -10,10 +10,13 @@
     <van-number-keyboard safe-area-inset-bottom />
     <script>
     MathJax = {
+        loader: {
+            load: ['tex-svg-full', '[tex]/require']
+        },
         tex: {
             inlineMath: [['$', '$'], ['\\(', '\\)']]
         },
-        chtml: {
+        svg: {
             scale: 1.3
         }
     };
