@@ -74,7 +74,7 @@ var loc_map = (function(){
                     var image = document.createElement("van-image");
                     image.setAttribute("src", content.image);
                     image.setAttribute("lazy-load", true);
-                    return image.outerHTML;
+                    return Vue.compile(image.outerHTML);
                 }
             }
         },
