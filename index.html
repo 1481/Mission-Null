@@ -68,10 +68,10 @@ var loc_map = (function(){
                 if(content.type == "text") {
                     var text = document.createElement("p");
                     text.innerHTML = content.text;
-                    return text;
+                    return text.outerHTML;
                 }
                 else if(content.type == "image") {
-                    
+                    return "Image";
                 }
             }
         },
