@@ -48,9 +48,7 @@ var loc_map = (function(){
     var app = new Vue({
         el: "#app",
         mounted: function() {
-            for(var i = 0; i < document.querySelectorAll(".math").length; i++) {
-                document.querySelectorAll(".math")[i].innerHTML = MathJax.tex2chtml(document.querySelectorAll(".math")[i].innerHTML).outerHTML;
-            }
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
         },
         data: {
             tab: loc_map["tab"] ? Number(loc_map["tab"]) : 0,
