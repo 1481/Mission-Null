@@ -40,8 +40,8 @@ var loc_map = (function(){
                         <br>
                         <br>
                         測試數學式：
-                        <div class="math">$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$</div>
-                        <div v-for="contents in subject.contents"></div>
+                        <div>$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$</div>
+                        <div v-for="contents in subject.contents"> {{ contents.type }} </div>
                     </van-col>
                 </van-row>
             </van-tab>
