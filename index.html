@@ -9,17 +9,25 @@
     <script src="https://cdn.jsdelivr.net/npm/vant@2.2/lib/vant.min.js"></script>
     <van-number-keyboard safe-area-inset-bottom />
     <script>
-    var loc_map = (function(){
-        var x = location.href;
-        var KVs = x.search(/\?/)>-1?x.substr(x.search(/\?/)+1).split("&"):[];
-        var m = {};
-        for(i in KVs) {
-            let KV = KVs[i].split("=");
-            m[KV[0]] = KV[1];
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
         }
-        return m;
-    })();
-    </script>
+    };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+var loc_map = (function(){
+    var x = location.href;
+    var KVs = x.search(/\?/)>-1?x.substr(x.search(/\?/)+1).split("&"):[];
+    var m = {};
+    for(i in KVs) {
+        let KV = KVs[i].split("=");
+        m[KV[0]] = KV[1];
+    }
+    return m;
+})();
+</script>
 </head>
 <body>
     <div id="app">
@@ -29,6 +37,8 @@
                     <van-col span="22">
                         <br>
                         {{ subject.name }}好難喔。
+                        <br>
+                        <div class="math">$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$</div>
                     </van-col>
                 </van-row>
             </van-tab>
@@ -37,6 +47,11 @@
     <script>
     var app = new Vue({
         el: "#app",
+        mounted: function() {
+            for(var i = 0; i < document.querySelectorAll(".math").length; i++) {
+                document.querySelectorAll(".math")[i].innerHTML = MathJax.tex2chtml(document.querySelectorAll(".math")[i].innerHTML).outerHTML;
+            }
+        },
         data: {
             tab: loc_map["tab"] ? Number(loc_map["tab"]) : 0,
             researches: {
