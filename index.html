@@ -41,7 +41,7 @@ var loc_map = (function(){
                         <br>
                         測試數學式：
                         <div>$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$</div>
-                        <div v-for="content in subject.contents"> {{ render(content) }} </div>
+                        <div v-for="content in subject.contents" v-html="render(content)"></div>
                     </van-col>
                 </van-row>
             </van-tab>
@@ -65,7 +65,14 @@ var loc_map = (function(){
         },
         methods: {
             render: function(content) {
-                return JSON.stringify(content);
+                if(content.type == "text") {
+                    var text = document.createElement("p");
+                    text.innerHTML = content.text;
+                    return text;
+                }
+                else if(content.type == "image") {
+                    
+                }
             }
         },
         data: {
