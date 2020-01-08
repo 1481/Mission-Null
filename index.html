@@ -71,7 +71,10 @@ var loc_map = (function(){
                     return text.outerHTML;
                 }
                 else if(content.type == "image") {
-                    return "Image";
+                    var image = document.createElement("van-image");
+                    image.src = content.image;
+                    image["lazy-load"] = true;
+                    return image.outerHTML;
                 }
             }
         },
