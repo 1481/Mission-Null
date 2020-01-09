@@ -71,9 +71,19 @@ var loc_map = (function(){
         }
         return data;
     }
+    
     get().then(researches => {
         window.app = new Vue({
             el: "#app",
+            mounted: function() {
+                setTimeout(() => {
+                    MathJax.typesetPromise().then(() => {
+                        console.log("Rendered MathJax.");
+                    }).catch(e => {
+                        console.error(e);
+                    });
+                }, 50);
+            },
             watch: {
                 tab: function(n) {
                     console.log("Tab Switched To " + n);
