@@ -2,4 +2,4 @@ comment SRF(Simple Research File) 測試檔
 title 雙曲線
 text 這是雙曲線。
 image https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Hyperbel-def-ass-e.svg/928px-Hyperbel-def-ass-e.svg.png
-text 雙曲線的方程式通常長這樣：$${{x^2\over a^2} - {y^2\over b^2} = 1}$$
+text 雙曲線的方程式通常長這樣：$${{x^2 \over a^2} - {y^2 \over b^2} = 1}$$
