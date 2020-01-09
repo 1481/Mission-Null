@@ -100,20 +100,19 @@ var loc_map = (function(){
             methods: {
                 render: function(content) {
                     for(var i = 0; i < content.length; i++) {
-                        let content = content[i];
-                        if(content.type == "title") {
+                        if(content[i].type == "title") {
                             var title = document.createElement("h2");
-                            title.innerHTML = content.title;
+                            title.innerHTML = content[i].title;
                             return title.outerHTML;
                         }
-                        else if(content.type == "text") {
+                        else if(content[i].type == "text") {
                             var text = document.createElement("p");
-                            text.innerHTML = content.text;
+                            text.innerHTML = content[i].text;
                             return text.outerHTML;
                         }
-                        else if(content.type == "image") {
+                        else if(content[i].type == "image") {
                             var image = document.createElement("img");
-                            image.setAttribute("src", content.image);
+                            image.setAttribute("src", content[i].image);
                             image.setAttribute("class", "van-image__img");
                             image.setAttribute("style", "max-width: 600px; object-fit: contain;");
                             return image.outerHTML;
