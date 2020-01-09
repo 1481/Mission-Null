@@ -10,15 +10,8 @@
     <van-number-keyboard safe-area-inset-bottom />
     <script>
     MathJax = {
-        loader: {
-            load: ['tex-svg-full', '[tex]/require']
-        },
         tex: {
             inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        svg: {
-            fontCache: 'global',
-            scale: 1
         }
     };
 </script>
@@ -50,6 +43,18 @@ var loc_map = (function(){
         </van-tabs>
     </div>
     <script>
+    async function get() {
+        var data = {};
+        let index = await fetch("./Research/index").then(r=>r.json());
+        for(var sub in index) {
+            data[sub] = [];
+            for(var i = 0; i < index[sub].length; i++) {
+                let srf = await fetch("./Research/"+sub+"/"+index[sub][i]).then(r=>r.json());
+                data[sub].push(srf);
+            }
+        }
+        return data;
+    }
     var app = new Vue({
         el: "#app",
         watch: {
