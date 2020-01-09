@@ -14,20 +14,26 @@
             inlineMath: [['$', '$'], ['\\(', '\\)']]
         }
     };
-</script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script>
-var loc_map = (function(){
-    var x = location.href;
-    var KVs = x.search(/\?/)>-1?x.substr(x.search(/\?/)+1).split("&"):[];
-    var m = {};
-    for(i in KVs) {
-        let KV = KVs[i].split("=");
-        m[KV[0]] = KV[1];
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    var loc_map = (function(){
+        var x = location.href;
+        var KVs = x.search(/\?/)>-1?x.substr(x.search(/\?/)+1).split("&"):[];
+        var m = {};
+        for(i in KVs) {
+            let KV = KVs[i].split("=");
+            m[KV[0]] = KV[1];
+        }
+        return m;
+    })();
+    </script>
+    <style>
+    * {
+        font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif;
+        letter-spacing: 0.5px;
     }
-    return m;
-})();
-</script>
+    </style>
 </head>
 <body>
     <div id="app">
