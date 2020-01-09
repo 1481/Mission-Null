@@ -49,8 +49,24 @@ var loc_map = (function(){
         for(var sub in index) {
             data[sub] = [];
             for(var i = 0; i < index[sub].length; i++) {
+                let sro = [];
                 let srf = await fetch("./Research/"+sub+"/"+index[sub][i]).then(r=>r.text());
-                data[sub].push(srf);
+                let objs = srf.split('\n');
+                for(var j = 0; j < objs.length; j++) {
+                    let obj = {};
+                    obj.type = objs[j].substr(0, objs[j].search(" "));
+                    if(obj.type == "title") {
+                        obj.title = objs[j].substr(objs[j].search(" ")+1);
+                    }
+                    else if(obj.type == "text") {
+                        obj.text = objs[j].substr(objs[j].search(" ")+1);
+                    }
+                    else if(obj.type == "image") {
+                        obj.image = objs[j].substr(objs[j].search(" ")+1);
+                    }
+                    sro.push(obj);
+                }
+                data[sub].push(sro);
             }
         }
         return data;
@@ -72,22 +88,25 @@ var loc_map = (function(){
         },
         methods: {
             render: function(content) {
-                if(content.type == "title") {
-                    var title = document.createElement("h2");
-                    title.innerHTML = content.title;
-                    return title.outerHTML;
-                }
-                else if(content.type == "text") {
-                    var text = document.createElement("p");
-                    text.innerHTML = content.text;
-                    return text.outerHTML;
-                }
-                else if(content.type == "image") {
-                    var image = document.createElement("img");
-                    image.setAttribute("src", content.image);
-                    image.setAttribute("class", "van-image__img");
-                    image.setAttribute("style", "max-width: 600px; object-fit: contain;");
-                    return image.outerHTML;
+                for(var i = 0; i < content.length; i++) {
+                    let content = content[i];
+                    if(content.type == "title") {
+                        var title = document.createElement("h2");
+                        title.innerHTML = content.title;
+                        return title.outerHTML;
+                    }
+                    else if(content.type == "text") {
+                        var text = document.createElement("p");
+                        text.innerHTML = content.text;
+                        return text.outerHTML;
+                    }
+                    else if(content.type == "image") {
+                        var image = document.createElement("img");
+                        image.setAttribute("src", content.image);
+                        image.setAttribute("class", "van-image__img");
+                        image.setAttribute("style", "max-width: 600px; object-fit: contain;");
+                        return image.outerHTML;
+                    }
                 }
             }
         },
