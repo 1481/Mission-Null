@@ -71,95 +71,51 @@ var loc_map = (function(){
         }
         return data;
     }
-    var app = new Vue({
-        el: "#app",
-        watch: {
-            tab: function(n) {
-                console.log("Tab Switched To " + n);
-                history.pushState({tab: n}, "", "?tab="+n);
-                setTimeout(() => {
-                    MathJax.typesetPromise().then(() => {
-                        console.log("Rendered MathJax.");
-                    }).catch(e => {
-                        console.error(e);
-                    });
-                }, 50);
-            }
-        },
-        methods: {
-            render: function(content) {
-                for(var i = 0; i < content.length; i++) {
-                    let content = content[i];
-                    if(content.type == "title") {
-                        var title = document.createElement("h2");
-                        title.innerHTML = content.title;
-                        return title.outerHTML;
-                    }
-                    else if(content.type == "text") {
-                        var text = document.createElement("p");
-                        text.innerHTML = content.text;
-                        return text.outerHTML;
-                    }
-                    else if(content.type == "image") {
-                        var image = document.createElement("img");
-                        image.setAttribute("src", content.image);
-                        image.setAttribute("class", "van-image__img");
-                        image.setAttribute("style", "max-width: 600px; object-fit: contain;");
-                        return image.outerHTML;
-                    }
+    get().then(researches => {
+        window.app = new Vue({
+            el: "#app",
+            watch: {
+                tab: function(n) {
+                    console.log("Tab Switched To " + n);
+                    history.pushState({tab: n}, "", "?tab="+n);
+                    setTimeout(() => {
+                        MathJax.typesetPromise().then(() => {
+                            console.log("Rendered MathJax.");
+                        }).catch(e => {
+                            console.error(e);
+                        });
+                    }, 50);
                 }
-            }
-        },
-        data: {
-            tab: loc_map["tab"] ? Number(loc_map["tab"]) : 0,
-            researches: {
-                "數學": {
-                    "name": "數學",
-                    "contents": [
-                        {
-                            "type": "title",
-                            "title": "雙曲線"
-                        },
-                        {
-                            "type": "text",
-                            "text": "這是雙曲線。"
-                        },
-                        {
-                            "type": "image",
-                            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Hyperbel-def-ass-e.svg/928px-Hyperbel-def-ass-e.svg.png"
-                        },
-                        {
-                            "type": "text",
-                            "text": "雙曲線的方程式通常長這樣：$${{x^2\\over a^2} - {y^2\\over b^2} = 1}$$"
+            },
+            methods: {
+                render: function(content) {
+                    for(var i = 0; i < content.length; i++) {
+                        let content = content[i];
+                        if(content.type == "title") {
+                            var title = document.createElement("h2");
+                            title.innerHTML = content.title;
+                            return title.outerHTML;
                         }
-                    ]
-                },
-                "物理": {
-                    "name": "物理",
-                    "contents": []
-                },
-                "化學": {
-                    "name": "化學",
-                    "contents": []
-                },
-                "生物": {
-                    "name": "生物",
-                    "contents": []
-                },
-                "地科": {
-                    "name": "地科",
-                    "contents": []
-                },
-                "資訊": {
-                    "name": "資訊",
-                    "contents": []
-                } ,
-                "社會": {
-                    "name": "社會",
-                    "contents": []
+                        else if(content.type == "text") {
+                            var text = document.createElement("p");
+                            text.innerHTML = content.text;
+                            return text.outerHTML;
+                        }
+                        else if(content.type == "image") {
+                            var image = document.createElement("img");
+                            image.setAttribute("src", content.image);
+                            image.setAttribute("class", "van-image__img");
+                            image.setAttribute("style", "max-width: 600px; object-fit: contain;");
+                            return image.outerHTML;
+                        }
+                    }
                 }
+            },
+            data: {
+                tab: loc_map["tab"] ? Number(loc_map["tab"]) : 0,
+                researches: researches
             }
-        }
+        });
     });
     document.body.addEventListener("keydown", e => {
         if(e.keyCode == 37) {
