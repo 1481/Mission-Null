@@ -8,14 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.2/lib/index.css">
     <script src="https://cdn.jsdelivr.net/npm/vant@2.2/lib/vant.min.js"></script>
     <van-number-keyboard safe-area-inset-bottom />
-    <script>
-    MathJax = {
-        tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']]
-        }
-    };
-    </script>
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
     <script>
     var loc_map = (function(){
         var x = location.href;
@@ -87,10 +82,13 @@
             el: "#app",
             mounted: function() {
                 setTimeout(() => {
-                    MathJax.typesetPromise().then(() => {
-                        console.log("Rendered MathJax.");
-                    }).catch(e => {
-                        console.error(e);
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            {left: "$", right: "$", display: false},
+                            {left: "$$", right: "$$", display: true},
+                            {left: "\\(", right: "\\)", display: false},
+                            {left: "\\[", right: "\\]", display: true}
+                        ]
                     });
                 }, 50);
             },
@@ -99,10 +97,13 @@
                     console.log("Tab Switched To " + n);
                     history.pushState({tab: n}, "", "?tab="+n);
                     setTimeout(() => {
-                        MathJax.typesetPromise().then(() => {
-                            console.log("Rendered MathJax.");
-                        }).catch(e => {
-                            console.error(e);
+                        renderMathInElement(document.body, {
+                            delimiters: [
+                                {left: "$", right: "$", display: false},
+                                {left: "$$", right: "$$", display: true},
+                                {left: "\\(", right: "\\)", display: false},
+                                {left: "\\[", right: "\\]", display: true}
+                            ]
                         });
                     }, 50);
                 }
