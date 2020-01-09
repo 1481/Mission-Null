@@ -50,6 +50,8 @@
     </div>
     <script>
     async function get() {
+        if(localStorage["sroc-ct"] && Date.now() < Number(localStorage["sroc-ct"]) + 30000) 
+            return JSON.parse(localStorage["sroc-cache"]);
         var data = {};
         let index = await fetch("./Research/index").then(r=>r.json());
         for(var sub in index) {
@@ -75,6 +77,8 @@
                 data[sub]["contents"].push(sro);
             }
         }
+        localStorage["sroc-cache"] = JSON.stringify(data);
+        localStorage["sroc-ct"] = Date.now();
         return data;
     }
     
