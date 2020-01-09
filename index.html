@@ -99,25 +99,27 @@ var loc_map = (function(){
             },
             methods: {
                 render: function(content) {
+                    var output = "";
                     for(var i = 0; i < content.length; i++) {
                         if(content[i].type == "title") {
                             var title = document.createElement("h2");
                             title.innerHTML = content[i].title;
-                            return title.outerHTML;
+                            output += title.outerHTML;
                         }
                         else if(content[i].type == "text") {
                             var text = document.createElement("p");
                             text.innerHTML = content[i].text;
-                            return text.outerHTML;
+                            output += text.outerHTML;
                         }
                         else if(content[i].type == "image") {
                             var image = document.createElement("img");
                             image.setAttribute("src", content[i].image);
                             image.setAttribute("class", "van-image__img");
                             image.setAttribute("style", "max-width: 600px; object-fit: contain;");
-                            return image.outerHTML;
+                            output += image.outerHTML;
                         }
                     }
+                    return output;
                 }
             },
             data: {
