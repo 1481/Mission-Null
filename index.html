@@ -135,11 +135,12 @@
         });
     });
     document.body.addEventListener("keydown", e => {
+        let subjects = 7;
         if(e.keyCode == 37) {
-            app._data.tab = (app._data.tab + 5) % 6;
+            app._data.tab = (app._data.tab + subjects - 1) % subjects;
         }
         if(e.keyCode == 39) {
-            app._data.tab = (app._data.tab + 1) % 6;
+            app._data.tab = (app._data.tab + 1) % subjects;
         }
     });
     </script>
