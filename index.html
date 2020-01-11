@@ -8,9 +8,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.2/lib/index.css">
     <script src="https://cdn.jsdelivr.net/npm/vant@2.2/lib/vant.min.js"></script>
     <van-number-keyboard safe-area-inset-bottom />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+    };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
     var loc_map = (function(){
         var x = location.href;
@@ -24,7 +29,7 @@
     })();
     </script>
     <style>
-    *:not(.katex) {
+    * {
         font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif;
         letter-spacing: 0.5px;
     }
@@ -82,34 +87,24 @@
             el: "#app",
             mounted: function() {
                 setTimeout(() => {
-                    renderMathInElement(document.body, {
-                        delimiters: [
-                            {left: "$", right: "$", display: false},
-                            {left: "$$", right: "$$", display: true},
-                            {left: "\\(", right: "\\)", display: false},
-                            {left: "\\[", right: "\\]", display: true}
-                        ],
-                        throwOnError: false,
-                        output: "html"
+                    MathJax.typesetPromise().then(() => {
+                        console.log("Rendered MathJax.");
+                    }).catch(e => {
+                        console.error(e);
                     });
-                }, 10);
+                }, 50);
             },
             watch: {
                 tab: function(n) {
                     console.log("Tab Switched To " + n);
                     history.pushState({tab: n}, "", "?tab="+n);
                     setTimeout(() => {
-                        renderMathInElement(document.body, {
-                            delimiters: [
-                                {left: "$", right: "$", display: false},
-                                {left: "$$", right: "$$", display: true},
-                                {left: "\\(", right: "\\)", display: false},
-                                {left: "\\[", right: "\\]", display: true}
-                            ],
-                            throwOnError: false,
-                            output: "html"
+                        MathJax.typesetPromise().then(() => {
+                            console.log("Rendered MathJax.");
+                        }).catch(e => {
+                            console.error(e);
                         });
-                    }, 10);
+                    }, 50);
                 }
             },
             methods: {
