@@ -39,12 +39,18 @@
     <div id="app">
         <van-tabs v-model="tab" sticky animated scrollspy>
             <van-tab v-for="subject in researches" :title="subject.name">
-                <van-row type="flex" justify="center">
-                    <van-col span="22">
-                        <br>
-                        <div v-for="content in subject.contents" v-html="render(content)"></div>
-                    </van-col>
-                </van-row>
+                
+                <van-tabs v-model="subtab" sticky animated scrollspy>
+                    <van-tab v-for="content in subject.contents" :title="title(content)">
+                        <van-row type="flex" justify="center">
+                            <van-col span="22" v-bind:style="{ maxWidth: "1000px" }">
+                                <br>
+                                <div v-for="content in subject.contents" v-html="render(content)"></div>
+                            </van-col>
+                        </van-row>
+                    </van-tab>
+                </van-tabs>
+                
             </van-tab>
         </van-tabs>
     </div>
@@ -108,6 +114,16 @@
                 }
             },
             methods: {
+                title: function(content) {
+                    var title = "";
+                    for(var i = 0; i < content.length; i++) {
+                        if(content[i].type == "title") {
+                            title = content[i].title;
+                            break;
+                        }
+                    }
+                    return title;
+                },
                 render: function(content) {
                     var output = "";
                     for(var i = 0; i < content.length; i++) {
@@ -133,6 +149,7 @@
                 }
             },
             data: {
+                subtab: loc_map["subtab"] ? Number(loc_map["subtab"]) : 0,
                 tab: loc_map["tab"] ? Number(loc_map["tab"]) : 0,
                 researches: researches
             }
