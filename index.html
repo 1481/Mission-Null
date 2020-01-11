@@ -37,9 +37,8 @@
 </head>
 <body>
     <div id="app">
-        <van-tabs v-model="tab" sticky animated scrollspy>
+        <van-tabs v-model="tab" animated scrollspy>
             <van-tab v-for="subject in researches" :title="subject.name">
-                
                 <van-tabs v-model="subtab" sticky animated scrollspy>
                     <van-tab v-for="content in subject.contents" :title="title(content)">
                         <van-row type="flex" justify="center">
@@ -50,7 +49,6 @@
                         </van-row>
                     </van-tab>
                 </van-tabs>
-                
             </van-tab>
         </van-tabs>
     </div>
