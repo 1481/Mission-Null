@@ -39,7 +39,7 @@
     <div id="app">
         <van-tabs v-model="tab" animated scrollspy>
             <van-tab v-for="subject in researches" :title="subject.name">
-                <van-tabs v-model="subtab" sticky animated scrollspy>
+                <van-tabs v-model="subtab" sticky animated scrollspy :color="color[subject]">
                     <van-tab v-for="content in subject.contents" :title="title(content)">
                         <van-row type="flex" justify="center">
                             <van-col span="22" v-bind:style="{ maxWidth: '1000px' }">
@@ -160,6 +160,7 @@
             data: {
                 subtab: loc_map["subtab"] ? Number(loc_map["subtab"]) : 0,
                 tab: loc_map["tab"] ? Number(loc_map["tab"]) : 0,
+                color: {"數學": "#ff0000", "物理": "#ff8d00", "化學": "#fff700", "生物": "#00ff7d", "地科": "#00f3ff", "資訊": "#0072ff", "社會": "#a900ff"},
                 researches: researches
             }
         });
