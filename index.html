@@ -43,7 +43,7 @@
                 <van-tabs v-model="subtab" sticky animated scrollspy>
                     <van-tab v-for="content in subject.contents" :title="title(content)">
                         <van-row type="flex" justify="center">
-                            <van-col span="22" v-bind:style="{ maxWidth: "1000px" }">
+                            <van-col span="22" v-bind:style="{ maxWidth: '1000px' }">
                                 <br>
                                 <div v-for="content in subject.contents" v-html="render(content)"></div>
                             </van-col>
