@@ -99,9 +99,20 @@
                 }, 50);
             },
             watch: {
-                tab: function(n) {
-                    console.log("Tab Switched To " + n);
-                    history.pushState({tab: n}, "", "?tab="+n);
+                tab: function() {
+                    console.log("Tab Switched To " + this.tab);
+                    history.pushState({tab: this.tab, subtab: this.subtab}, "", "?tab="+this.tab+"&subtab="+this.subtab);
+                    setTimeout(() => {
+                        MathJax.typesetPromise().then(() => {
+                            console.log("Rendered MathJax.");
+                        }).catch(e => {
+                            console.error(e);
+                        });
+                    }, 50);
+                },
+                subtab: function() {
+                    console.log("Subtab Switched To " + this.subtab);
+                    history.pushState({tab: this.tab, subtab: this.subtab}, "", "?tab="+this.tab+"&subtab="+this.subtab);
                     setTimeout(() => {
                         MathJax.typesetPromise().then(() => {
                             console.log("Rendered MathJax.");
